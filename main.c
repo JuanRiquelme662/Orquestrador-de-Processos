@@ -20,7 +20,7 @@ void tokenizacao(int *qunt_tokens, char *tokens_sep[], char *entrada) {
 
 }
 
-void cadastro_taks(int qnt_tokens, char *tokens_sep[], task tasks_cadastradas[], int *qnt_tasks) {
+void cadastro_task(int qnt_tokens, char *tokens_sep[], task tasks_cadastradas[], int *qnt_tasks) {
     if (qnt_tokens < 3) {
         printf("Erro: uso correto é 'task <nome> <programa> [args...]'\n");
         return;
