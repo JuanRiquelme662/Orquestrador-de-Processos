@@ -3,7 +3,8 @@
 #include <string.h>
 #include <unistd.h>     
 #include <sys/types.h>   
-#include <sys/wait.h>    
+#include <sys/wait.h> 
+#include <fcntl.h>
 
 typedef struct task{
     char nome[100];
@@ -67,9 +68,35 @@ task* buscar_task(char *nome, task tasks_cadastradas[], int qnt_tasks) {
 //apenas inicia a task nao faz o pai esperar pelo filho
 pid_t iniciar_task(task *t) {
     pid_t pid = fork();
+    int arq_output;
+    int arq_input;
 
     if (pid == 0) {
         //processo filho
+        if(strlen(t->arquivo_input) > 0) {
+            arq_input = open(t->arquivo_input, O_RDONLY);
+            if(arq_input < 0){
+                printf("Erro: arquivo de entrada '%s' não encontrado\n", t->arquivo_input);
+                exit(1);
+            }
+            dup2(arq_input, 0);
+            close(arq_input);
+        }
+        if(strlen(t->arquivo_output) > 0) {
+            if(t->modo_append) {
+                 //o 0664 indica que o dono do arquivo pode ler e escrever nele, todo mundo mais só pode ler, ninguém mais pode modificar
+                arq_output = open(t->arquivo_output, O_WRONLY | O_CREAT | O_APPEND, 0644);
+            }else{
+                arq_output = open(t->arquivo_output, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+            }
+            if(arq_output < 0){
+                printf("Erro: saida de entrada '%s' não encontrado\n", t->arquivo_output);
+                exit(1);
+            }
+            dup2(arq_output, 1);
+            close(arq_output);
+            
+        }
         //execvp pega o primeiro argumento com o nome do programa a ser executado e o segundo, o argumento completo
         execvp(t->args[0], t->args);
         //essas linhas so sao rodades caso a linha anterior nao consiga ser executada, porque execvp ja "mata" o processo filho 
@@ -197,6 +224,7 @@ int main(int argc, char *argv[]) {
             printf("programa encerrado>\n");
             break;
         }
+        //ve se a entrada esta vazia via strlen
         if (strlen(entrada) == 0) {
             continue;
         }
@@ -228,10 +256,31 @@ int main(int argc, char *argv[]) {
             if(qnt_tokens < 2) {
                 printf("Erro: comando 'workdir' precisa de um argumento\n");
                 continue;
-
             }
             mudar_workdir(tokens_sep[1]);
-        }else{
+
+        } else if (strcmp(tokens_sep[0], "input") == 0) {
+            if (qnt_tokens < 3) {
+                printf("Erro: uso correto é 'input <task> <arquivo>'\n");
+                continue;
+            }
+            definir_input(tokens_sep[1], tokens_sep[2], tasks_cadastradas, qnt_tasks);
+
+        } else if (strcmp(tokens_sep[0], "output") == 0) {
+            if (qnt_tokens < 3) {
+                printf("Erro: uso correto é 'output <task> <arquivo>'\n");
+                continue;
+            }
+            definir_output(tokens_sep[1], tokens_sep[2], tasks_cadastradas, qnt_tasks);
+
+        } else if (strcmp(tokens_sep[0], "append") == 0) {
+            if (qnt_tokens < 3) {
+                printf("Erro: uso correto é 'append <task> <arquivo>'\n");
+                continue;
+            }
+            definir_output_append(tokens_sep[1], tokens_sep[2], tasks_cadastradas, qnt_tasks);
+
+        } else {
             printf("Erro: comando '%s' não reconhecido\n", tokens_sep[0]);
 
         }
