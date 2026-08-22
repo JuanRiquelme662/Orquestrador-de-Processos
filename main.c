@@ -54,7 +54,8 @@ task* buscar_task(char *nome, task tasks_cadastradas[], int qnt_tasks) {
     return NULL;
 }
 
-void executar_task(task *t) {
+//apenas inicia a task nao faz o pai esperar pelo filho
+pid_t iniciar_task(task *t) {
     pid_t pid = fork();
 
     if (pid == 0) {
@@ -64,11 +65,19 @@ void executar_task(task *t) {
         //essas linhas so sao rodades caso a linha anterior nao consiga ser executada, porque execvp ja "mata" o processo filho 
         printf("Erro ao executar task '%s'\n", t->nome);
         exit(1);
-    } else if (pid > 0) {
-        //processo pai
-        wait(NULL);
-    } else {
+    } else if(pid < 0) {
+        //pid negativo significa que houve erro na criacao do processo filho
         printf("Erro ao criar processo filho\n");
+    }
+    return pid;
+}
+
+//executa a task mas faz o pai esperar pelo filho
+void executar_task(task *t) {
+    pid_t pid = iniciar_task(t);
+    if (pid > 0) {
+        //campo para o processo pai esperar o processo filho 
+        wait(NULL);
     }
 }
 
