@@ -11,13 +11,14 @@ typedef struct task{
     int qnt_tokens;
 }task;
 
-void tokenizacao(int *qunt_tokens, char *tokens_sep[], char *entrada) {
+//funcoes-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void tokenizacao(int *qnt_tokens, char *tokens_sep[], char *entrada) {
     char *token = strtok(entrada, " ");
-    *qunt_tokens = 0;
+    *qnt_tokens = 0;
 
     while(token != NULL){
-        tokens_sep[*qunt_tokens] = token;
-        (*qunt_tokens)++;
+        tokens_sep[*qnt_tokens] = token;
+        (*qnt_tokens)++;
         //eu passo NULL para que ela continue a partir do ponto onde parou na string original
         token = strtok(NULL, " ");
     }
@@ -73,7 +74,7 @@ pid_t iniciar_task(task *t) {
 }
 
 //executa a task mas faz o pai esperar pelo filho
-void executar_task(task *t) {
+void aguardar_task(task *t) {
     pid_t pid = iniciar_task(t);
     if (pid > 0) {
         //campo para o processo pai esperar o processo filho 
@@ -90,10 +91,48 @@ void run(char *tokens_sep[], task tasks_cadastradas[], int qnt_tasks) {
         return;
     }
     //executa a task encontrada atraves do endereco encontrado por buscar_task
-    executar_task(t);
+    aguardar_task(t);
 }
 
+void run_sequencial(char *tokens_sep[], task tasks_cadastradas[], int qnt_tokens, int qnt_tasks) {
+    for (int i = 2; i < qnt_tokens; i++) {
+        task *t = buscar_task(tokens_sep[i], tasks_cadastradas, qnt_tasks);
+        if (t == NULL) {
+            printf("Erro: task '%s' não encontrada\n", tokens_sep[i]);
+            continue;
+        }
+        aguardar_task(t);
+    }
+}
+
+void run_paralelo(char *tokens_sep[], task tasks_cadastradas[], int qnt_tokens, int qnt_tasks){
+    //guarda os pids dos processos iniciados
+    pid_t pids[50];
+    //numero de processos iniciados
+    int num_pids = 0;
+
+    for (int i = 2; i < qnt_tokens; i++) {
+        task *t = buscar_task(tokens_sep[i], tasks_cadastradas, qnt_tasks);
+        if (t == NULL) {
+            printf("Erro: task '%s' não encontrada\n", tokens_sep[i]);
+            continue;
+        }
+        //executa direto ao inves de chamar a funcao aguardar_task, e guarda o pid do processo filho
+        pids[num_pids] = iniciar_task(t);
+        num_pids++;
+    }
+    //espera todos os processos filhos terminarem
+    for (int i = 0; i < num_pids; i++){
+        //pode receber um PID negativo, e um comportamento raro, mas vale registrar
+        waitpid(pids[i], NULL, 0);
+    }
+
+}
+
+
+//main-----------------------------------------------------------------------------------------------------------------------------------------------
 int main(int argc, char *argv[]) {
+    //lembrar de aumentar o tamanho das entradas, principalmente quando comecar a mexer com pipe!!!!
     task tasks_cadastradas[100];
     int qnt_tasks = 0;
     char entrada[100];
@@ -101,16 +140,17 @@ int main(int argc, char *argv[]) {
     int qnt_tokens = 0;
 
     while(1){
-        printf("process_flow>");
+        printf("processflow>");
+        fflush(stdout);
         if (fgets(entrada, sizeof(entrada), stdin) == NULL) {
-            printf("programa encerrado>");
+            printf("programa encerrado>\n");
             break;
         }
 
         entrada[strcspn(entrada, "\n")] = '\0';
         
         if (strcmp(entrada, "exit") == 0) {
-            printf("programa encerrado>");
+            printf("programa encerrado>\n");
             break;
         }
         if (strlen(entrada) == 0) {
@@ -123,7 +163,18 @@ int main(int argc, char *argv[]) {
         if(strcmp(tokens_sep[0], "task") == 0){
             cadastro_task(qnt_tokens, tokens_sep, tasks_cadastradas, &qnt_tasks);
         }else if(strcmp(tokens_sep[0], "run") == 0){
-            run(tokens_sep, tasks_cadastradas, qnt_tasks);
+            if(qnt_tokens < 2) {
+                printf("Erro: comando 'run' precisa de um argumento\n");
+                //volta para o loop mais proximo caso a pessoa nao digite o comando corretamente
+                continue;
+            }
+            if(strcmp(tokens_sep[1], "sequential") == 0){
+                run_sequencial(tokens_sep, tasks_cadastradas, qnt_tokens, qnt_tasks);
+            }else if(strcmp(tokens_sep[1], "parallel") == 0){
+                run_paralelo(tokens_sep, tasks_cadastradas, qnt_tokens, qnt_tasks);
+            }else{
+                run(tokens_sep, tasks_cadastradas, qnt_tasks);
+                }
         }else{
             printf("Erro: comando '%s' não reconhecido\n", tokens_sep[0]);
         }
