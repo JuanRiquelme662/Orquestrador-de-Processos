@@ -40,6 +40,19 @@ void cadastro_task(int qnt_tokens, char *tokens_sep[], task tasks_cadastradas[],
 
     printf("Task '%s' cadastrada.\n", nova_task->nome);
 }
+
+void run(char *tokens_sep[], task tasks_cadastradas[], int qnt_tasks) {
+    int encontrou = 0;
+    for (int i = 0; i < qnt_tasks; i++) {
+        if(strcmp(tokens_sep[1], tasks_cadastradas[i].nome) == 0){
+            encontrou =1;
+            break;
+        }
+    }
+    if (encontrou == 0) {
+        printf("Erro: task '%s' não encontrada\n", tokens_sep[1]);
+    }
+}
 int main(int argc, char *argv[]) {
     task tasks_cadastradas[100];
     int qnt_tasks = 0;
