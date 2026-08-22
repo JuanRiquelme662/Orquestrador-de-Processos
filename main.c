@@ -53,10 +53,15 @@ void run(char *tokens_sep[], task tasks_cadastradas[], int qnt_tasks) {
             
             if (pid == 0) {
                 //processo filho
-
+                //execvp pega o primeiro argumento com o nome do programa a ser executado e o segundo, o argumento completo
+                execvp(tasks_cadastradas[i].args[0], tasks_cadastradas[i].args);
+                //essas linhas so sao rodades caso a linha anterior nao consiga ser executada, porque execvp ja "mata" o processo filho 
+                printf("Erro ao executar task '%s'\n", tasks_cadastradas[i].nome);
+                exit(1);
             }else if(pid > 0){
                 //processo pai
-
+                wait(NULL);
+                
             }else{
                 printf("Erro ao criar processo filho\n");
             }
