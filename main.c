@@ -209,17 +209,35 @@ int main(int argc, char *argv[]) {
     char entrada[100];
     char *tokens_sep[100];
     int qnt_tokens = 0;
+    FILE *entrada_padrao = stdin;
+
+    if(argc > 1){
+        //usa argv[1] porque o arg[0] e o nome do programa, e argv[1] e o primeiro argumento passado pelo usuario
+        entrada_padrao = fopen(argv[1],"r");
+        if(entrada_padrao == NULL){
+            printf("Erro fatal!: arquivo '%s' não encontrado\n", argv[1]);
+            exit(1);
+        }
+    }
 
     while(1){
-        printf("processflow>");
-        fflush(stdout);
-        if (fgets(entrada, sizeof(entrada), stdin) == NULL) {
+        if(entrada_padrao == stdin){
+            printf("processflow>");
+            //faz o prompt ser exibido antes da entrada do usuario
+            fflush(stdout);
+        }
+            
+        if (fgets(entrada, sizeof(entrada), entrada_padrao) == NULL) {
             printf("programa encerrado>\n");
             break;
         }
 
         entrada[strcspn(entrada, "\n")] = '\0';
-        
+
+        if (entrada_padrao != stdin) {
+            printf("%s\n", entrada);
+        }
+
         if (strcmp(entrada, "exit") == 0) {
             printf("programa encerrado>\n");
             break;
@@ -285,6 +303,10 @@ int main(int argc, char *argv[]) {
 
         }
 
+    }
+
+    if (entrada_padrao != stdin) {
+        fclose(entrada_padrao);
     }
     return 0;
 }
