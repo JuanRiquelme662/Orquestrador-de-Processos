@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>     
+#include <sys/types.h>   
+#include <sys/wait.h>    
 
 typedef struct task{
     char nome[100];
@@ -46,6 +49,18 @@ void run(char *tokens_sep[], task tasks_cadastradas[], int qnt_tasks) {
     for (int i = 0; i < qnt_tasks; i++) {
         if(strcmp(tokens_sep[1], tasks_cadastradas[i].nome) == 0){
             encontrou =1;
+            pid_t pid = fork();
+            
+            if (pid == 0) {
+                //processo filho
+
+            }else if(pid > 0){
+                //processo pai
+
+            }else{
+                printf("Erro ao criar processo filho\n");
+            }
+
             break;
         }
     }
@@ -78,9 +93,14 @@ int main(int argc, char *argv[]) {
         }
 
         tokenizacao(&qnt_tokens, tokens_sep, entrada);
-        
-        for (int i = 0; i < qnt_tokens; i++) {
-            printf("Token %d: %s\n", i, tokens_sep[i]);
+
+        //identificacao do comando digitado pelo usuario
+        if(strcmp(tokens_sep[0], "task") == 0){
+            cadastro_task(qnt_tokens, tokens_sep, tasks_cadastradas, &qnt_tasks);
+        }else if(strcmp(tokens_sep[0], "run") == 0){
+            run(tokens_sep, tasks_cadastradas, qnt_tasks);
+        }else{
+            printf("Erro: comando '%s' não reconhecido\n", tokens_sep[0]);
         }
 
     }
