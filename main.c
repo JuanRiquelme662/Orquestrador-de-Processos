@@ -133,10 +133,9 @@ void mudar_workdir(char *caminho) {
     int resultado = chdir(caminho);
     //se o chdir der certo retorna 0 e tudo roda certo, mas se der erro retorna -1 e entra no if
     if (resultado == -1) {
-        printf("Erro ao mudar diretório de trabalho\n");
+        printf("Erro: diretório '%s' não existe ou não pode ser acessado\n", caminho);
     }
 }
-
 
 //main-----------------------------------------------------------------------------------------------------------------------------------------------
 int main(int argc, char *argv[]) {
