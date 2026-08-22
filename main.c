@@ -9,6 +9,11 @@ typedef struct task{
     char nome[100];
     char *args[100];
     int qnt_tokens;
+    //guarda o aquivo que vai ser lido na entrada
+    char arquivo_input[100];
+    //guarda o arquivo que vai ser escrito na saida
+    char arquivo_output[100];
+    int modo_append;
 }task;
 
 //funcoes-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -41,6 +46,10 @@ void cadastro_task(int qnt_tokens, char *tokens_sep[], task tasks_cadastradas[],
     }
     nova_task->args[j] = NULL;
     nova_task->qnt_tokens = j;
+    //preenche os campos de input output e modo_append com valores padrao para evitar lixo de memoria
+    nova_task->arquivo_input[0] = '\0';
+    nova_task->arquivo_output[0] = '\0';
+    nova_task->modo_append = 0;
     (*qnt_tasks)++;
 
     printf("Task '%s' cadastrada.\n", nova_task->nome);
@@ -137,6 +146,25 @@ void mudar_workdir(char *caminho) {
     }
 }
 
+void definir_input(char *nome_task, char *arquivo, task tasks_cadastradas[], int qnt_tasks) {
+    task *t = buscar_task(nome_task, tasks_cadastradas, qnt_tasks);
+    if (t == NULL) {
+        printf("Erro: task '%s' não encontrada\n", nome_task);
+        return;
+    }
+    strcpy(t->arquivo_input, arquivo);
+}
+
+void definir_output(char *nome_task, char *arquivo, task tasks_cadastradas[], int qnt_tasks){
+    task *t = buscar_task(nome_task, tasks_cadastradas, qnt_tasks);
+    if (t == NULL) {
+        printf("Erro: task '%s' não encontrada\n", nome_task);
+        return;
+    }
+    strcpy(t->arquivo_output, arquivo);
+    t->modo_append = 0;
+}
+
 //main-----------------------------------------------------------------------------------------------------------------------------------------------
 int main(int argc, char *argv[]) {
     //lembrar de aumentar o tamanho das entradas, principalmente quando comecar a mexer com pipe!!!!
@@ -187,7 +215,7 @@ int main(int argc, char *argv[]) {
                 run(tokens_sep, tasks_cadastradas, qnt_tasks);
 
             }
-        }else if(strcmp(tokens_sep[1], "workdir") == 0){
+        }else if(strcmp(tokens_sep[0], "workdir") == 0){
             if(qnt_tokens < 2) {
                 printf("Erro: comando 'workdir' precisa de um argumento\n");
                 continue;
