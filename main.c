@@ -165,6 +165,15 @@ void definir_output(char *nome_task, char *arquivo, task tasks_cadastradas[], in
     t->modo_append = 0;
 }
 
+void definir_output_append(char *nome_task, char *arquivo, task tasks_cadastradas[], int qnt_tasks){
+    task *t = buscar_task(nome_task, tasks_cadastradas, qnt_tasks);
+    if (t == NULL) {
+        printf("Erro: task '%s' não encontrada\n", nome_task);
+        return;
+    }
+    strcpy(t->arquivo_output, arquivo);
+    t->modo_append = 1;
+}
 //main-----------------------------------------------------------------------------------------------------------------------------------------------
 int main(int argc, char *argv[]) {
     //lembrar de aumentar o tamanho das entradas, principalmente quando comecar a mexer com pipe!!!!
