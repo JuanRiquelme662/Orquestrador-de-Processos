@@ -128,6 +128,14 @@ void run_paralelo(char *tokens_sep[], task tasks_cadastradas[], int qnt_tokens, 
     }
 
 }
+//caminho vai pegar o segundo argumento da entrada ou seja tokens_sep[1]
+void mudar_workdir(char *caminho) {
+    int resultado = chdir(caminho);
+    //se o chdir der certo retorna 0 e tudo roda certo, mas se der erro retorna -1 e entra no if
+    if (resultado == -1) {
+        printf("Erro ao mudar diretório de trabalho\n");
+    }
+}
 
 
 //main-----------------------------------------------------------------------------------------------------------------------------------------------
@@ -162,21 +170,34 @@ int main(int argc, char *argv[]) {
         //identificacao do comando digitado pelo usuario
         if(strcmp(tokens_sep[0], "task") == 0){
             cadastro_task(qnt_tokens, tokens_sep, tasks_cadastradas, &qnt_tasks);
+
         }else if(strcmp(tokens_sep[0], "run") == 0){
             if(qnt_tokens < 2) {
                 printf("Erro: comando 'run' precisa de um argumento\n");
                 //volta para o loop mais proximo caso a pessoa nao digite o comando corretamente
                 continue;
+
             }
             if(strcmp(tokens_sep[1], "sequential") == 0){
                 run_sequencial(tokens_sep, tasks_cadastradas, qnt_tokens, qnt_tasks);
+
             }else if(strcmp(tokens_sep[1], "parallel") == 0){
                 run_paralelo(tokens_sep, tasks_cadastradas, qnt_tokens, qnt_tasks);
+
             }else{
                 run(tokens_sep, tasks_cadastradas, qnt_tasks);
-                }
+
+            }
+        }else if(strcmp(tokens_sep[1], "workdir") == 0){
+            if(qnt_tokens < 2) {
+                printf("Erro: comando 'workdir' precisa de um argumento\n");
+                continue;
+
+            }
+            mudar_workdir(tokens_sep[1]);
         }else{
             printf("Erro: comando '%s' não reconhecido\n", tokens_sep[0]);
+
         }
 
     }
