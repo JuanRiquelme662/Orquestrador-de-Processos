@@ -96,7 +96,7 @@ pid_t iniciar_task(task *t) {
                 arq_output = open(t->arquivo_output, O_WRONLY | O_CREAT | O_TRUNC, 0644);
             }
             if(arq_output < 0){
-                printf("Erro: saida de entrada '%s' não encontrado\n", t->arquivo_output);
+                printf("Erro: não foi possível abrir o arquivo de '%s' de saída \n", t->arquivo_output);
                 exit(1);
             }
             dup2(arq_output, 1);
@@ -207,6 +207,18 @@ void definir_output_append(char *nome_task, char *arquivo, task tasks_cadastrada
     strcpy(t->arquivo_output, arquivo);
     t->modo_append = 1;
 }
+
+//qnt_jobs e equivalente a job_id
+void esperar_job(int id, job jobs_ativos[], int qnt_jobs) {
+    for (int i = 0; i < qnt_jobs; i++) {
+        if (jobs_ativos[i].job_id == id) {
+            waitpid(jobs_ativos[i].pid, NULL, 0);
+            return;
+        }
+    }
+    printf("Erro: job com ID %d não encontrado\n", id);
+    
+}
 //main-----------------------------------------------------------------------------------------------------------------------------------------------
 int main(int argc, char *argv[]) {
     //lembrar de aumentar o tamanho das entradas, principalmente quando comecar a mexer com pipe!!!!
@@ -226,6 +238,10 @@ int main(int argc, char *argv[]) {
             printf("Erro fatal!: arquivo '%s' não encontrado\n", argv[1]);
             exit(1);
         }
+    }
+    if (argc > 2){
+        printf("Erro fatal!: numero de argumentos invalido\n");
+        exit(1);
     }
 
     while(1){
@@ -326,13 +342,18 @@ int main(int argc, char *argv[]) {
              for (int i = 0; i < job_id; i++) {
                 printf("[%d] %d %s\n", jobs_ativos[i].job_id, jobs_ativos[i].pid, jobs_ativos[i].nome_task);
             }
+        }  else if (strcmp(tokens_sep[0], "wait") == 0) {
+            if (qnt_tokens < 2) {
+                printf("Erro: uso correto é 'wait <jobId>'\n");
+                continue;
+            }
+            int id_procurado = atoi(tokens_sep[1]);
+            esperar_job(id_procurado, jobs_ativos, job_id);
         } else {
             printf("Erro: comando '%s' não reconhecido\n", tokens_sep[0]);
 
         }
-
     }
-
     if (entrada_padrao != stdin) {
         fclose(entrada_padrao);
     }
