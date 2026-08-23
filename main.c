@@ -322,6 +322,10 @@ int main(int argc, char *argv[]) {
                 printf("[%d] %d\n", job_id + 1, jobs_ativos[job_id].pid);
                 job_id++;
             
+        } else if(strcmp(tokens_sep[0], "jobs") == 0){
+             for (int i = 0; i < job_id; i++) {
+                printf("[%d] %d %s\n", jobs_ativos[i].job_id, jobs_ativos[i].pid, jobs_ativos[i].nome_task);
+            }
         } else {
             printf("Erro: comando '%s' não reconhecido\n", tokens_sep[0]);
 
