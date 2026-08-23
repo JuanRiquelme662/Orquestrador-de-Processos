@@ -170,6 +170,67 @@ void run_paralelo(char *tokens_sep[], task tasks_cadastradas[], int qnt_tokens, 
     }
 
 }
+
+void run_pipe(char *tokens_sep[], task tasks_cadastradas[], int qnt_tokens, int qnt_tasks) {
+    int qnt_pipes = qnt_tokens - 3;// -3 porque a quantidade de taks e tokens-2 por conta do comando e do pipe, e a quantidade de pipes e igual a qnt_tasks-1
+    int pipes[50][2]; //armazena os pipes criados
+    for(int i = 0; i < qnt_pipes; i++){
+        if(pipe(pipes[i])== -1){
+            printf("Erro ao criar pipe\n");
+            return;
+        }
+    }
+
+    pid_t pids[50];
+    int num_pids = 0;
+    int tasks_pipe = qnt_pipes + 1;
+    //o for vai:
+    // 1. buscar a task pelo nome
+    // 2. checar se a task foi encontrada e criar um processo filho
+    // 3. redirecionar a entrada e saida do processo filho para os pipes corretos
+    for(int i = 0; i < tasks_pipe; i++){
+        char *nome_task = tokens_sep[i + 2];
+        task *t = buscar_task(nome_task, tasks_cadastradas, qnt_tasks); 
+        if (t == NULL) {
+            printf("Erro: task '%s' não encontrada\n", nome_task);
+            continue;
+        }
+
+        pid_t pid = fork();
+        if(pid == 0){
+            //onde o proceso filho entra
+            if(i > 0) {
+                //checa se nao e a primeira
+                //le da pipe anterior
+                dup2(pipes[i - 1][0], 0);
+            }
+            if(i < qnt_pipes) {
+                //checa se nao e a ultima
+                //escreve na pipe atual
+                dup2(pipes[i][1], 1);
+            }
+            //fechar todos pipes
+            for(int j = 0; j < qnt_pipes; j++){
+                close(pipes[j][0]);
+                close(pipes[j][1]);
+            }
+            execvp(t->args[0], t->args);
+            printf("Erro ao executar task '%s'\n", t->nome);
+            exit(1);
+        }
+        //crio os pids para depois conseguir esperar por eles
+        pids[num_pids] = pid;
+        num_pids++;
+    }
+    for(int j = 0; j < qnt_pipes; j++){
+        close(pipes[j][0]);
+        close(pipes[j][1]);
+    }
+     for(int k = 0; k < num_pids; k++){
+        waitpid(pids[k], NULL, 0);
+    }
+}
+
 //caminho vai pegar o segundo argumento da entrada ou seja tokens_sep[1]
 void mudar_workdir(char *caminho) {
     int resultado = chdir(caminho);
@@ -290,6 +351,8 @@ int main(int argc, char *argv[]) {
             }else if(strcmp(tokens_sep[1], "parallel") == 0){
                 run_paralelo(tokens_sep, tasks_cadastradas, qnt_tokens, qnt_tasks);
 
+            }else if(strcmp(tokens_sep[1], "pipe") == 0){
+                run_pipe(tokens_sep, tasks_cadastradas, qnt_tokens, qnt_tasks);
             }else{
                 run(tokens_sep, tasks_cadastradas, qnt_tasks);
 
