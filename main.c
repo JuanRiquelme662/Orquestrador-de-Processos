@@ -17,6 +17,12 @@ typedef struct task{
     int modo_append;
 }task;
 
+typedef struct job {
+    int job_id;
+    pid_t pid;
+    char nome_task[100];
+} job;
+
 //funcoes-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void tokenizacao(int *qnt_tokens, char *tokens_sep[], char *entrada) {
     char *token = strtok(entrada, " ");
