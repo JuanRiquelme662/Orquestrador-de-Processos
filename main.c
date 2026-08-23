@@ -216,6 +216,8 @@ int main(int argc, char *argv[]) {
     char *tokens_sep[100];
     int qnt_tokens = 0;
     FILE *entrada_padrao = stdin;
+    int job_id = 0;
+    job jobs_ativos[100];
 
     if(argc > 1){
         //usa argv[1] porque o arg[0] e o nome do programa, e argv[1] e o primeiro argumento passado pelo usuario
@@ -304,6 +306,22 @@ int main(int argc, char *argv[]) {
             }
             definir_output_append(tokens_sep[1], tokens_sep[2], tasks_cadastradas, qnt_tasks);
 
+        } else if(strcmp(tokens_sep[0], "start") == 0){
+            if(qnt_tokens < 2) {
+                printf("Erro: uso correto é 'start <task>'\n");
+                continue;
+            }
+                task *t = buscar_task(tokens_sep[1], tasks_cadastradas, qnt_tasks);
+                if (t == NULL) {
+                    printf("Erro: task '%s' não encontrada\n", tokens_sep[1]);
+                    continue;
+                }
+                jobs_ativos[job_id].job_id = job_id + 1;
+                jobs_ativos[job_id].pid = iniciar_task(t);
+                strcpy(jobs_ativos[job_id].nome_task, tokens_sep[1]);
+                printf("[%d] %d\n", job_id + 1, jobs_ativos[job_id].pid);
+                job_id++;
+            
         } else {
             printf("Erro: comando '%s' não reconhecido\n", tokens_sep[0]);
 
