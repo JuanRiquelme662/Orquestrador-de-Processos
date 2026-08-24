@@ -174,6 +174,19 @@ void run_paralelo(char *tokens_sep[], task tasks_cadastradas[], int qnt_tokens, 
 void run_pipe(char *tokens_sep[], task tasks_cadastradas[], int qnt_tokens, int qnt_tasks) {
     int qnt_pipes = qnt_tokens - 3;// -3 porque a quantidade de taks e tokens-2 por conta do comando e do pipe, e a quantidade de pipes e igual a qnt_tasks-1
     int pipes[50][2]; //armazena os pipes criados
+    int tasks_pipe = qnt_pipes + 1;
+    pid_t pids[50];
+    int num_pids = 0;
+
+    //verifica se as operacoes presentes no pipe existem
+    for (int i = 0; i < tasks_pipe; i++) {
+        char *nome_task = tokens_sep[i + 2];
+        if (buscar_task(nome_task, tasks_cadastradas, qnt_tasks) == NULL) {
+            printf("Erro: task '%s' não encontrada. Pipe cancelado.\n", nome_task);
+            return;  // ccancela a operacao
+        }
+    }
+
     for(int i = 0; i < qnt_pipes; i++){
         if(pipe(pipes[i])== -1){
             printf("Erro ao criar pipe\n");
@@ -181,9 +194,6 @@ void run_pipe(char *tokens_sep[], task tasks_cadastradas[], int qnt_tokens, int 
         }
     }
 
-    pid_t pids[50];
-    int num_pids = 0;
-    int tasks_pipe = qnt_pipes + 1;
     //o for vai:
     // 1. buscar a task pelo nome
     // 2. checar se a task foi encontrada e criar um processo filho
@@ -285,8 +295,8 @@ int main(int argc, char *argv[]) {
     //lembrar de aumentar o tamanho das entradas, principalmente quando comecar a mexer com pipe!!!!
     task tasks_cadastradas[100];
     int qnt_tasks = 0;
-    char entrada[100];
-    char *tokens_sep[100];
+    char entrada[1024];
+    char *tokens_sep[1024];
     int qnt_tokens = 0;
     FILE *entrada_padrao = stdin;
     int job_id = 0;
@@ -416,6 +426,9 @@ int main(int argc, char *argv[]) {
             printf("Erro: comando '%s' não reconhecido\n", tokens_sep[0]);
 
         }
+    }
+    for (int i = 0; i < job_id; i++) {
+        waitpid(jobs_ativos[i].pid, NULL, 0);
     }
     if (entrada_padrao != stdin) {
         fclose(entrada_padrao);

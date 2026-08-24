@@ -1,0 +1,201 @@
+Script started on 2026-08-24 16:43:08-03:00 [TERM="xterm-256color" TTY="/dev/pts/4" COLUMNS="177" LINES="7"]
+[?2004h]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ [H[2J]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ cat > teste_erros.pf << 'EOF'
+task
+task nome_so
+run
+workdir
+input
+output
+append
+start
+wait
+task    listar     /bin/ls    -l
+run   listar
+run tarefa_que_nao_existe
+workdir /caminho/que/nao/existe
+wait 999
+task esperar /bin/sleep 5
+[7mstart esperar[27m
+[7mtask ordenar /usr/bin/sort[27m
+[7mtask contar /usr/bin/wc -l[27m
+[7mrun pipe listar tarefa_falsa contar[27m
+[7mwait abc[27m
+[7mexit[27m
+[7mEOF[27m[A[A[A[A[A[Astart esperar
+task ordenar /usr/bin/sort
+task contar /usr/bin/wc -l
+run pipe listar tarefa_falsa contar
+wait abc
+exit
+EOF
+[?2004l[?2004h]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ [K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ [K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ [K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ [K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ [K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ [K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ [K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ [K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ [K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ [K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ [7mcat teste_erros.pf[27mcat teste_erros.pf
+[?2004ltask
+task nome_so
+run
+workdir
+input
+output
+append
+start
+wait
+task    listar     /bin/ls    -l
+run   listar
+run tarefa_que_nao_existe
+workdir /caminho/que/nao/existe
+wait 999
+task esperar /bin/sleep 5
+start esperar
+task ordenar /usr/bin/sort
+task contar /usr/bin/wc -l
+run pipe listar tarefa_falsa contar
+wait abc
+exit
+[?2004h]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ cat teste_erros.pf> teste_erros.pf << 'EOF'
+task
+task nome_so
+run
+workdir
+input
+output
+append
+start
+wait
+task    listar     /bin/ls    -l
+run   listar
+run tarefa_que_nao_existe
+workdir /caminho/que/nao/existe
+wait 999
+task esperar /bin/sleep 5
+start esperar
+task ordenar /usr/bin/sort
+task contar /usr/bin/wc -l
+run pipe listar tarefa_falsa contar
+wait abc
+exit
+EOF
+[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[16P./processflow
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[12@gcc main.c -o [C[C[C[C[C[C[C[C[C[C[C[12P./[C[C[C[C[C[C[C[C[C[C[C[12@gcc main.c -o [C[C[C[C[C[C[C[C[C[C[C[12P./[C[C[C[C[C[C[C[C[C[C[C[12@gcc main.c -o [C[C[C[C[C[C[C[C[C[C[C
+[?2004l[?2004h]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ gcc main.c -o processflow[7Pcat teste_erros.pf> teste_erros.pf << 'EOF'
+task
+task nome_so
+run
+workdir
+input
+output
+append
+start
+wait
+task    listar     /bin/ls    -l
+run   listar
+run tarefa_que_nao_existe
+workdir /caminho/que/nao/existe
+wait 999
+task esperar /bin/sleep 5
+start esperar
+task ordenar /usr/bin/sort
+task contar /usr/bin/wc -l
+run pipe listar tarefa_falsa contar
+wait abc
+exit
+EOF
+[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[16P./processflow
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+[?2004lprocessflow>programa encerrado>
+[?2004h]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ ./processflow[12@gcc main.c -o [C[C[C[C[C[C[C[C[C[C[C[12P./[C[C[C[C[C[C[C[C[C[C[C [7mteste_erros.pf[27mteste_erros.pf[K[C[C[Cf
+[?2004ltask
+Erro: uso correto é 'task <nome> <programa> [args...]'
+task nome_so
+Erro: uso correto é 'task <nome> <programa> [args...]'
+run
+Erro: comando 'run' precisa de um argumento
+workdir
+Erro: comando 'workdir' precisa de um argumento
+input
+Erro: uso correto é 'input <task> <arquivo>'
+output
+Erro: uso correto é 'output <task> <arquivo>'
+append
+Erro: uso correto é 'append <task> <arquivo>'
+start
+Erro: uso correto é 'start <task>'
+wait
+Erro: uso correto é 'wait <jobId>'
+task    listar     /bin/ls    -l
+Task 'listar' cadastrada.
+run   listar
+total 141
+-rwxrwxrwx 1 mito mito  1107 Aug 21 12:18 LICENSE
+-rwxrwxrwx 1 mito mito   127 Aug 21 12:18 README.md
+-rwxrwxrwx 1 mito mito  8192 Aug 24 16:49 evidencias.log
+-rwxrwxrwx 1 mito mito 15613 Aug 24 16:45 main.c
+-rwxrwxrwx 1 mito mito 87963 Aug 21 09:43 main.exe
+-rwxrwxrwx 1 mito mito 21552 Aug 24 16:49 processflow
+-rwxrwxrwx 1 mito mito   636 Aug 22 17:52 saida.txt
+-rwxrwxrwx 1 mito mito    36 Aug 22 19:00 teste2.pf
+-rwxrwxrwx 1 mito mito   318 Aug 24 16:48 teste_erros.pf
+run tarefa_que_nao_existe
+Erro: task 'tarefa_que_nao_existe' não encontrada
+workdir /caminho/que/nao/existe
+Erro: diretório '/caminho/que/nao/existe' não existe ou não pode ser acessado
+wait 999
+Erro: job com ID 999 não encontrado
+task esperar /bin/sleep 5
+Task 'esperar' cadastrada.
+start esperar
+[1] 2348
+task ordenar /usr/bin/sort
+Task 'ordenar' cadastrada.
+task contar /usr/bin/wc -l
+Task 'contar' cadastrada.
+run pipe listar tarefa_falsa contar
+Erro: task 'tarefa_falsa' não encontrada
+0
+wait abc
+Erro: job com ID 0 não encontrado
+exit
+programa encerrado>
+[?2004h]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ [K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ [K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ [K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ [K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ [K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ [K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ [K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ [K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ [K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ [K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ [K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ [K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ [K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ v[K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ v[K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ v[K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ v[K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ v[K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ v[K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ v[K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ v[K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ v[K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ v[K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ v[K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ v[K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ v[K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ v[K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ v[K]0;mito@JUAN-PC: /mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[01;32mmito@JUAN-PC[00m:[01;34m/mnt/c/Users/Mito/Desktop/repositorios/Pong-Champs/Orquestrador-de-Processos[00m$ v[K
