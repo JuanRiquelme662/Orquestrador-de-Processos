@@ -1,0 +1,18 @@
+# Executáveis gerados pela compilação
+processflow
+*.exe
+*.o
+ 
+# Arquivos de log e saída gerados em testes
+*.log
+*.txt
+ 
+# Arquivos de workflow usados só para testes locais (opcional - remova se quiser versionar)
+teste*.pf
+ 
+# Arquivos temporários do editor/SO
+*~
+.vscode/
+.DS_Store
+Thumbs.db
+ 
