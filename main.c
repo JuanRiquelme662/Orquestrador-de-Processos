@@ -73,6 +73,7 @@ task* buscar_task(char *nome, task tasks_cadastradas[], int qnt_tasks) {
 
 //apenas inicia a task nao faz o pai esperar pelo filho
 pid_t iniciar_task(task *t) {
+    fflush(stdout);
     pid_t pid = fork();
     int arq_output;
     int arq_input;
@@ -205,7 +206,7 @@ void run_pipe(char *tokens_sep[], task tasks_cadastradas[], int qnt_tokens, int 
             printf("Erro: task '%s' não encontrada\n", nome_task);
             continue;
         }
-
+        fflush(stdout);
         pid_t pid = fork();
         if(pid == 0){
             //onde o proceso filho entra
@@ -292,7 +293,6 @@ void esperar_job(int id, job jobs_ativos[], int qnt_jobs) {
 }
 //main-----------------------------------------------------------------------------------------------------------------------------------------------
 int main(int argc, char *argv[]) {
-    //lembrar de aumentar o tamanho das entradas, principalmente quando comecar a mexer com pipe!!!!
     task tasks_cadastradas[100];
     int qnt_tasks = 0;
     char entrada[1024];
