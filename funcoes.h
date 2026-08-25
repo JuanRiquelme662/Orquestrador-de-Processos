@@ -21,7 +21,7 @@ typedef struct job {
 } job;
  
 void tokenizacao(int *qnt_tokens, char *tokens_sep[], char *entrada);
-void cadastro_task(int qnt_tokens, char *tokens_sep[], task tasks_cadastradas[], int *qnt_tasks);
+void cadastro_task(int qnt_tokens, char *tokens_sep[], task tasks_cadastradas[], int *qnt_tasks, int modo_interativo);
 task* buscar_task(char *nome, task tasks_cadastradas[], int qnt_tasks);
 pid_t iniciar_task(task *t);
 void aguardar_task(task *t);
